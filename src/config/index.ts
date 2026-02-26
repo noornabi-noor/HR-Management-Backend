@@ -1,9 +1,10 @@
 import dotenv from "dotenv";
+import { env } from "./env";
 dotenv.config();
 
 const config = {
-  db: process.env.CONNECTION_STR, // use the Neon connection string
-  jwtSecret: process.env.JWT_SECRET
+  db: env.CONNECTION_STR, 
+  jwtSecret: env.JWT_SECRET
 };
 
 export default config;

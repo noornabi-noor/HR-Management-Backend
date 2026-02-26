@@ -1,8 +1,9 @@
 import { db } from "../../config/db";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { env } from "../../config/env";
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
+const JWT_SECRET = env.JWT_SECRET || "your_secret_key";
 const SALT_ROUNDS = 10;
 
 const loginHR = async (email: string, password: string) => {
