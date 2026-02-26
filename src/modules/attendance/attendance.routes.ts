@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { attendanceController } from "./attendance.controller";
+import { verifyToken } from "../../middleware/auth.middleware";
 
 const router = Router();
+
+router.use(verifyToken);
 
 router.get("/", attendanceController.getAllAttendance);
 router.get("/:id", attendanceController.getAttendanceById);
