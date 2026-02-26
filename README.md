@@ -257,7 +257,7 @@ Response:
 
 An employee is considered late if:
 check_in_time > 09:45:00
----
+
 ## 🧠 TypeScript Requirements
 
 All request & response handlers are fully typed
@@ -268,7 +268,7 @@ Express Request is augmented with:
 req.user
 
 (decoded JWT payload)
----
+
 ## 🛡 Security
 
 - Password hashing with bcrypt
@@ -279,5 +279,3 @@ req.user
 
 # 👨‍💻 Author
 Md. Noornabi
-Built with Node.js & TypeScript
----
