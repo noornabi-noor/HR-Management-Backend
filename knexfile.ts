@@ -10,6 +10,10 @@ const knexConfig: { [key: string]: Knex.Config } = {
       directory: "./src/database/migrations",
       extension: "ts",
     },
+    seeds: {
+      directory: "./src/database/seeds",
+      extension: "ts",
+    },
   },
 };
 
