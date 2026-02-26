@@ -1,31 +1,31 @@
-import { Request, Response } from "express";
+import { Request } from "express";
 import { reportsServices } from "./reports.services";
+import { catchAsync } from "../../shared/catchAsync";
+import { sendResponse } from "../../shared/sendResponse";
 
-const getAttendanceReport = async (req: Request, res: Response) => {
-  try {
-    const { month, employee_id } = req.query;
+const getAttendanceReport = catchAsync(async (req: Request, res) => {
+  const { month, employee_id } = req.query;
 
-    if (!month) {
-      return res.status(400).json({
-        success: false,
-        message: "Query parameter 'month' is required (format: YYYY-MM)",
-      });
-    }
-
-    const report = await reportsServices.getAttendanceReport(
-      month as string,
-      employee_id as string | undefined,
-    );
-
-    res.status(200).json({
-      success: true,
-      message: "Monthly attendance report retrieved successfully",
-      data: report,
+  if (!month) {
+    return sendResponse(res, {
+      httpStatusCode: 400,
+      success: false,
+      message: "Query parameter 'month' is required (format: YYYY-MM)",
     });
-  } catch (error: any) {
-    res.status(500).json({ success: false, message: error.message });
   }
-};
+
+  const report = await reportsServices.getAttendanceReport(
+    month as string,
+    employee_id as string | undefined,
+  );
+
+  sendResponse(res, {
+    httpStatusCode: 200,
+    success: true,
+    message: "Monthly attendance report retrieved successfully",
+    data: report,
+  });
+});
 
 export const reportsController = {
   getAttendanceReport,

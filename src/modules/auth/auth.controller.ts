@@ -1,26 +1,28 @@
-import { Request, Response } from "express";
+import { Request } from "express";
 import { authServices } from "./auth.services";
+import { catchAsync } from "../../shared/catchAsync";
+import { sendResponse } from "../../shared/sendResponse";
 
-const loginHR = async (req: Request, res: Response) => {
-  try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Email and password are required" });
-    }
+const loginHR = catchAsync(async (req: Request, res) => {
+  const { email, password } = req.body;
 
-    const result = await authServices.loginHR(email, password);
-
-    res.status(200).json({
-      success: true,
-      message: "Login successful",
-      data: result,
+  if (!email || !password) {
+    return sendResponse(res, {
+      httpStatusCode: 400,
+      success: false,
+      message: "Email and password are required",
     });
-  } catch (error: any) {
-    res.status(401).json({ success: false, message: error.message });
   }
-};
+
+  const result = await authServices.loginHR(email, password);
+
+  sendResponse(res, {
+    httpStatusCode: 200,
+    success: true,
+    message: "Login successful",
+    data: result,
+  });
+});
 
 export const authController = {
   loginHR,
