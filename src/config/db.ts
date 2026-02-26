@@ -1,8 +1,4 @@
-import { Pool } from "pg";
-import config from ".";
+import knex from "knex";
+import knexConfig from "../../knexfile";
 
-// pool create
-export const pool = new Pool({
-  connectionString: `${config.connection_str}`,
-});
-
+export const db = knex(knexConfig.development);
